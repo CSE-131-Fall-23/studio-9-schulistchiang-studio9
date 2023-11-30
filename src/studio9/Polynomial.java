@@ -31,9 +31,9 @@ public class Polynomial {
 	public String toString() {
 		String str = "";
 		for (int i = 0; i < list.size(); i++) {
-			str += list.get(i) + "x^" + (list.size() - i) + " + ";
+			str += list.get(i) + "x^" + (list.size() - i - 1) + " + ";
 		}
-		return str.substring(0, str.length() - 2); 
+		return str;
 	}
 	
 	/**
@@ -44,7 +44,7 @@ public class Polynomial {
 	public double evaluate(double x) {
 		double out = 0;
 		for (int i = 0; i < list.size(); i++) {
-			double y = Math.pow(list.get(i) * x, (list.size() - i));
+			double y = list.get(i) * Math.pow(x, (list.size() - i - 1));
 			out += y;
 		}
 		return out;
@@ -52,7 +52,11 @@ public class Polynomial {
 
 	
 	public Polynomial derivative() {
-		return null;//FIXME
+		Polynomial deriv = new Polynomial();
+		for (int i = 0; i < list.size() - 1; i++) {
+			deriv.addTerm(list.get(i) * (list.size() - i - 1));
+		}
+		return deriv;
 	}
 	
 
